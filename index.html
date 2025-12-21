@@ -6,201 +6,155 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-:root{
-  --bg:#070a12;
-  --panel:#0f1424;
-  --panel2:#141a33;
-  --accent:#4f7cff;
-  --accent2:#22d3ee;
-  --text:#e5e7eb;
-  --muted:#8b93b8;
-  --glow:0 0 18px rgba(79,124,255,.45);
+:root {
+  --bg: #0f1115;
+  --panel: #161a22;
+  --panel-light: #1e2330;
+  --border: #2a3040;
+  --accent: #4f8cff;
+  --text: #e6e9f0;
+  --muted: #9aa4b2;
 }
 
-*{box-sizing:border-box;font-family:system-ui,sans-serif}
-body{
-  margin:0;
-  background:radial-gradient(circle at top,#0e1430,#05070d 60%);
-  color:var(--text);
-  height:100vh;
-  overflow:hidden;
+* {
+  box-sizing: border-box;
+  font-family: system-ui, sans-serif;
 }
 
-/* TOP */
-.topbar{
-  height:52px;
-  display:flex;
-  align-items:center;
-  padding:0 18px;
-  background:linear-gradient(180deg,#0e1430,#090c19);
-  border-bottom:1px solid #1f2755;
-}
-.logo{
-  font-weight:900;
-  letter-spacing:1px;
-  font-size:18px;
-}
-.logo span{color:var(--accent)}
-
-/* APP */
-.app{
-  display:grid;
-  grid-template-columns:80px 1fr;
-  height:calc(100vh - 52px);
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* SIDEBAR */
-.sidebar{
-  background:linear-gradient(180deg,#0f1428,#090c19);
-  border-right:1px solid #1f2755;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding:14px 0;
-  gap:14px;
+/* TOP BAR */
+.topbar {
+  height: 52px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  justify-content: space-between;
 }
-.nav{
-  width:52px;height:52px;
-  border-radius:14px;
-  background:#12183a;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  font-size:20px;
-  transition:.2s;
+
+.logo {
+  font-weight: 800;
+  letter-spacing: 0.5px;
 }
-.nav:hover{
-  background:#1a2360;
-  box-shadow:var(--glow);
-  transform:scale(1.08);
+
+.tabs {
+  display: flex;
+  gap: 6px;
 }
-.nav.active{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:black;
+
+.tab {
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--muted);
+}
+
+.tab.active {
+  background: var(--panel-light);
+  color: var(--text);
 }
 
 /* MAIN */
-.main{
-  position:relative;
-  overflow:hidden;
+.main {
+  flex: 1;
+  display: flex;
 }
 
-/* PAGES */
-.page{
-  position:absolute;
-  inset:0;
-  padding:28px;
-  overflow-y:auto;
-  opacity:0;
-  transform:translateY(10px);
-  pointer-events:none;
-  transition:.25s ease;
+/* LEFT GAME LIST */
+.sidebar {
+  width: 260px;
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  padding: 12px;
+  overflow-y: auto;
 }
-.page.active{
-  opacity:1;
-  transform:none;
-  pointer-events:auto;
+
+.game-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.game-item:hover {
+  background: var(--panel-light);
+}
+
+.game-item img {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.game-item span {
+  font-size: 14px;
+}
+
+/* CONTENT */
+.content {
+  flex: 1;
+  position: relative;
+}
+
+.page {
+  display: none;
+  height: 100%;
+  padding: 20px;
+}
+
+.page.active {
+  display: block;
 }
 
 /* HOME */
-.hero{
-  max-width:600px;
-}
-.hero h1{
-  font-size:42px;
-  margin:0 0 6px;
-}
-.hero p{
-  color:var(--muted);
-  margin-bottom:20px;
-}
-.status{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:14px;
-}
-.stat{
-  background:var(--panel);
-  border:1px solid #1f2755;
-  border-radius:16px;
-  padding:14px;
-}
-.stat span{
-  display:block;
-  color:var(--muted);
-  font-size:12px;
+.home h1 {
+  margin-top: 0;
 }
 
-/* GAMES */
-.games{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
-  gap:18px;
+/* GAMES GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
 }
-.card{
-  background:linear-gradient(180deg,#12183a,#0b0f22);
-  border:1px solid #1f2755;
-  border-radius:18px;
-  overflow:hidden;
-  cursor:pointer;
-  transition:.2s;
-}
-.card:hover{
-  transform:translateY(-6px);
-  box-shadow:var(--glow);
-}
-.thumb{
-  height:120px;
-  background:linear-gradient(135deg,#1e2a6b,#11163a);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:800;
-  letter-spacing:.5px;
-}
-.info{
-  padding:12px;
-}
-.info small{color:var(--muted)}
 
-/* LOADER */
-.loader{
-  position:absolute;
-  inset:0;
-  background:#02030a;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:18px;
-  letter-spacing:1px;
-  z-index:5;
-  opacity:0;
-  pointer-events:none;
-  transition:.2s;
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
 }
-.loader.show{
-  opacity:1;
-  pointer-events:auto;
+
+.card img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+}
+
+.card div {
+  padding: 10px;
+  font-size: 14px;
 }
 
 /* IFRAME */
-iframe{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  border:none;
-  display:none;
-}
-
-/* FOOT */
-.footer{
-  position:absolute;
-  bottom:12px;
-  right:16px;
-  font-size:12px;
-  color:var(--muted);
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: none;
 }
 </style>
 </head>
@@ -208,86 +162,101 @@ iframe{
 <body>
 
 <div class="topbar">
-  <div class="logo">SWORD<span>_</span></div>
+  <div class="logo">SWORD</div>
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('home', this)">Home</div>
+    <div class="tab" onclick="switchTab('games', this)">Games</div>
+    <div class="tab" onclick="switchTab('about', this)">About</div>
+  </div>
 </div>
 
-<div class="app">
-  <div class="sidebar">
-    <div class="nav active" onclick="showPage('home',this)">🏠</div>
-    <div class="nav" onclick="showPage('games',this)">🎮</div>
-    <div class="nav" onclick="showPage('info',this)">ℹ️</div>
+<div class="main">
+  <div class="sidebar" id="gameList">
+    <!-- Sidebar games -->
   </div>
 
-  <div class="main">
-    <div class="loader" id="loader">LOADING</div>
-
-    <!-- HOME -->
+  <div class="content">
     <div id="home" class="page active">
-      <div class="hero">
-        <h1>Sword</h1>
-        <p>A lightweight launcher-style web hub.</p>
-      </div>
-      <div class="status">
-        <div class="stat"><strong>System</strong><span>Online</span></div>
-        <div class="stat"><strong>Games</strong><span>Ready</span></div>
-        <div class="stat"><strong>Mode</strong><span>Standalone</span></div>
-      </div>
+      <h1>Welcome to Sword</h1>
+      <p style="color:var(--muted)">
+        A simple web game launcher.  
+        Select a game to start playing.
+      </p>
     </div>
 
-    <!-- GAMES -->
     <div id="games" class="page">
       <h2>Games</h2>
-      <div class="games">
-        <div class="card" onclick="launchGame('https://example.com')">
-          <div class="thumb">GAME 01</div>
-          <div class="info"><strong>Placeholder</strong><br><small>Action</small></div>
-        </div>
-        <div class="card" onclick="launchGame('https://example.com')">
-          <div class="thumb">GAME 02</div>
-          <div class="info"><strong>Placeholder</strong><br><small>Arcade</small></div>
-        </div>
-        <div class="card" onclick="launchGame('https://example.com')">
-          <div class="thumb">GAME 03</div>
-          <div class="info"><strong>Placeholder</strong><br><small>Strategy</small></div>
-        </div>
-      </div>
+      <div class="grid" id="gameGrid"></div>
     </div>
 
-    <!-- INFO -->
-    <div id="info" class="page">
-      <h2>About Sword</h2>
-      <p style="color:var(--muted);max-width:500px">
-        Sword is a modular web launcher designed to feel like an application,
-        not a website.
+    <div id="about" class="page">
+      <h2>About</h2>
+      <p style="color:var(--muted)">
+        Sword is a lightweight launcher-style website.
+        You control the games, links, and hosting.
       </p>
     </div>
 
     <iframe id="frame"></iframe>
-    <div class="footer">Sword v1.0</div>
   </div>
 </div>
 
 <script>
-const pages=document.querySelectorAll('.page');
-const loader=document.getElementById('loader');
-const frame=document.getElementById('frame');
+const games = [
+  {
+    name: "Slope",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Slope_Game_Logo.png/512px-Slope_Game_Logo.png",
+    url: "https://example.com"
+  },
+  {
+    name: "1v1.LOL",
+    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/7/79/1v1.lol_logo.png/512px-1v1.lol_logo.png",
+    url: "https://example.com"
+  },
+  {
+    name: "Shell Shockers",
+    logo: "https://shellshock.io/img/logo.png",
+    url: "https://example.com"
+  },
+  {
+    name: "Krunker",
+    logo: "https://krunker.io/img/favicon.png",
+    url: "https://example.com"
+  }
+];
 
-function showPage(id,btn){
-  pages.forEach(p=>p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.nav').forEach(n=>n.classList.remove('active'));
-  if(btn)btn.classList.add('active');
-  frame.style.display="none";
+const gameList = document.getElementById("gameList");
+const gameGrid = document.getElementById("gameGrid");
+const frame = document.getElementById("frame");
+
+games.forEach(g => {
+  // Sidebar
+  const item = document.createElement("div");
+  item.className = "game-item";
+  item.innerHTML = `<img src="${g.logo}"><span>${g.name}</span>`;
+  item.onclick = () => launchGame(g.url);
+  gameList.appendChild(item);
+
+  // Grid
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `<img src="${g.logo}"><div>${g.name}</div>`;
+  card.onclick = () => launchGame(g.url);
+  gameGrid.appendChild(card);
+});
+
+function switchTab(id, el) {
+  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+  el.classList.add("active");
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  frame.style.display = "none";
 }
 
-function launchGame(url){
-  loader.classList.add('show');
-  setTimeout(()=>{
-    loader.classList.remove('show');
-    pages.forEach(p=>p.classList.remove('active'));
-    frame.style.display="block";
-    frame.src=url;
-  },900);
+function launchGame(url) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  frame.style.display = "block";
+  frame.src = url;
 }
 </script>
 
